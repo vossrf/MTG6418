@@ -10,9 +10,9 @@ from math import pi,sin,cos,sqrt
 
 fig = None; ax = None   # defaults
 
-def setFigAx(f,a=None): # set globals
+def setFigAx(f=None,a=None): # set globals
     global ax,fig
-    if f==None: fig,ax = plt.subplots(1,1)
+    if f==None or a==None: fig,ax = plt.subplots(1,1)
     else:
         fig = f
         ax = a    
@@ -103,10 +103,10 @@ def Box(xy1,xy2,**kwargs):
     poly = Polygon(((x1,y1),(x2,y1),(x2,y2),(x1,y2)),**opts)
     ax.add_patch(poly)
 
-def DrawRelation(lab,S1,r1,S2,r2=[],S3=[]):
+def DrawRelation(lab,S1,r1,S2,r2=[],S3=[],f=None,a=None):
     "create diagram of relation r1 (and optionally r2) as lists of arrow ends, lab list of left, arrow, right"
     global ax,fig
-    if fig==None: fig, ax = plt.subplots(1,1)
+    setFigAx(f,a)
     n1 = len(S1); n2 = len(S2); n3 = len(S3)
     nm = max(n1,n2,n3)
     Box((0.4,nm-n1+0.4),(1.6,nm+0.6))   # background boxes
@@ -159,10 +159,10 @@ def DrawRelation(lab,S1,r1,S2,r2=[],S3=[]):
     plt.tight_layout()    
     return ax,fig
     
-def DiGraph(connects,prt=0,dir=1,rotate=0.0,nodemult=1.0,order=[],nodeXY=[],**kwargs):
+def DiGraph(connects,prt=0,dir=1,rotate=0.0,nodemult=1.0,order=[],nodeXY=[],f=None,a=None,**kwargs):
     "create DiGraph based on connects between nodes, use circular arrangement of nodes"
     global ax,fig
-    if fig==None: fig, ax = plt.subplots(1,1)
+    setFigAx(f,a)
     
     nodes = {}    # empty dictionary with center positions
     edges = {}    # edge dictionary with dir 0,1,2
